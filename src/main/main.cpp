@@ -5,10 +5,7 @@
  * then off for one second, repeatedly.
  */
 #include "Arduino.h"
-
-#ifndef LED_BUILTIN
-#define LED_BUILTIN 13
-#endif
+#include "uno_conf_Gpio.h"
 
 void setup()
 {
