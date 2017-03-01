@@ -1,9 +1,11 @@
 /*
  * GpioCommunicator - Interfaces with gpio pins
  *
- * Connected Harness
  * Written by Sam DuPlessis
  */
+
+#ifndef GPIOCOMMUNICATOR
+#define GPIOCOMMUNICATOR
 
 typedef struct
 {
@@ -13,4 +15,6 @@ typedef struct
 	} priv;
 } ty_GpioCommunicator;
 
-void GpioCommunicator_Init()
+void init_GpioCommunicator(ty_GpioCommunicator *subject);
+
+#endif
