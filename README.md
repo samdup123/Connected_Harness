@@ -2,5 +2,7 @@
 
 add this to your ~/.bash_aliases
 
-# comup -> COMpile UPload
-alias comup="platformio run --target upload
+comup -> COMpile UPload
+```bash
+alias comup="platformio run --target upload"
+```
