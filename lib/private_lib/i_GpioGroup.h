@@ -11,7 +11,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "i_DigitalInput.h"
 
 typedef uint8_t ty_Channel_GpioGroup;
 
