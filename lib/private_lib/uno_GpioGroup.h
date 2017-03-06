@@ -9,7 +9,6 @@
 #ifndef uno_GpioGroup
 #define uno_GpioGroup
 
-#include "UniversalPins.h"
 #include "i_GpioGroup.h"
 
 enum

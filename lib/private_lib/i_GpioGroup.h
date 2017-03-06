@@ -14,23 +14,25 @@
 
 typedef uint8_t ty_Channel_GpioGroup;
 
-typedef struct {
-	bool (*Read)(ty_Channel_GpioGroup channel);
+typedef struct
+{
+	bool (*Read)(void *subj, ty_Channel_GpioGroup channel);
 
-	void (*Write)(ty_Channel_GpioGroup channel, const bool state);
+	bool (*Read_InputPullUp)(void *subj, ty_Channel_GpioGroup channel);
 
+	void (*Write)(void *subj, ty_Channel_GpioGroup channel, const bool state);
 } ty_i_api_GpioGroup;
 
-typedef struct {
+typedef struct
+{
 	const ty_i_api_GpioGroup *api;
-
 } ty_i_GpioGroup;
 
-#define Read_GpioGroup(subject, channel) \
-	(subject)->api->Read((channel))
+#define Read_GpioGroup(subj, channel) \
+	(subj)->api->Read((subj), (channel))
 
-#define Write_GpioGroup(subject, channel, state) \
-	(subject)->api->Write((channel), (state))
+#define Write_GpioGroup(subj, channel, state) \
+	(subj)->api->Write((subj), (channel), (state))
 
 #endif
 

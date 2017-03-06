@@ -1,41 +1,23 @@
-/**
- * Blink
- *
- * Turns on an ONBOARD_LED on for one second,
- * then off for one second, repeatedly.
- */
-#include "Arduino.h"
-#include "uno_GpioGroup.h"
-#include "uno_GpioGroup.c"
-#include "i_GpioGroup.h"
-#include "UniversalPins.h"
-
-static const ty_i_GpioGroup* gpio;
-
-enum
+extern "C"
 {
-	LED = UniversalPin_Led,
-	ONBOARD_LED = UniversalPin_OnBoardLed
-};
+#include "uno_GpioGroup.h"
+#include "UniversalConstants.h"
+#include "DigitalInputPullup_GpioGroupAdapter.h"
+}
+#include "Arduino.h"
+
+static ty_i_GpioGroup *gpio;
+static ty_DigitalInputPullup_GpioGroupAdapter digitalInputPullupAdapter;
 
 void setup() {
-	//pinMode(uno_DigitalPin_NonPwm_2, HIGH);
 	gpio = init_uno_GpioGroup();
 	Serial.begin(9600);
+
+	init_DigitalInputPullup_GpioGroupAdapter(&digitalInputPullupAdapter, gpio, 4);
 }
 
 void loop() {
-	// turn the ONBOARD_LED on (HIGH is the voltage level)
-	//digitalWrite(uno_DigitalPin_NonPwm_2, HIGH);
-
-	Write_GpioGroup(gpio, ONBOARD_LED, HIGH);
-
-	delay(300);
-	//Serial.print(Read_GpioGroup(gpio, ONBOARD_LED));
-
-	// turn the ONBOARD_LED off by making the voltage LOW
-	Write_GpioGroup(gpio, ONBOARD_LED, LOW);
-
-	// wait for a second
-	delay(300);
+	bool state = Read_DigitalInputPullup(&digitalInputPullupAdapter.interface);
+	Write_GpioGroup(gpio, 2, state);
+	delay(1);
 }
