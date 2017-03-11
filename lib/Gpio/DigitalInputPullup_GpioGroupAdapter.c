@@ -5,13 +5,11 @@
  */
 
 #include "DigitalInputPullup_GpioGroupAdapter.h"
-
-#include "DigitalInputPullup_GpioGroupAdapter.h"
 #include "utilities.h"
 
 static bool digital_read(void *subj)
 {
-	REINTERPRET(subject, subj, ty_DigitalInputPullup_GpioGroupAdapter *);
+	RECAST(subject, subj, ty_DigitalInputPullup_GpioGroupAdapter *);
 	return Read_GpioGroup(subject->priv.gpioGroup, subject->priv.channel);
 }
 

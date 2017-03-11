@@ -5,7 +5,7 @@
  */
 
 #include "uno_GpioGroup.h"
-#include "UniversalConstants.h"
+#include "UniversalConstantsUno.h"
 #include "Arduino.h"
 
 bool Read(void *subj, ty_Channel_GpioGroup channel) {

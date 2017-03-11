@@ -6,8 +6,8 @@
  * Written by JamApps
  */
 
-#ifndef UniversalConstants
-#define UniversalConstants
+#ifndef UniversalConstantsUno
+#define UniversalConstantsUno
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -16,10 +16,6 @@ enum
 {
 	UniversalPin_Led = 2
 };
-
-static const bool ON = true;
-
-static const bool OFF = false;
 
 typedef uint8_t ty_UniversalPin;
 

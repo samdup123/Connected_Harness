@@ -9,7 +9,13 @@
 #ifndef utilities
 #define utilities
 
-#define REINTERPRET(newName, subject, newType) \
-	newType newName = (newType)subject
+#include <stdbool.h>
+
+#define RECAST(newName, oldName, newType) \
+	newType newName = (newType)oldName
+
+#define ON true
+
+#define OFF false
 
 #endif
