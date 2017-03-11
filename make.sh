@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd tdd-base/
+cd UnitTesting/
 make
 cd ..
 
