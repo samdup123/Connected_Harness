@@ -1,4 +1,10 @@
+#---------
+#
+# CppUTest Examples Makefile
+#
+#----------
 
+#Set this to @ to keep the makefile quiet
 ifndef SILENCE
 	SILENCE = @
 endif
@@ -8,7 +14,7 @@ PROJECT_HOME_DIR?=.
 COMPONENT_NAME=tdd-base
 
 LIB=../lib
-
+TESTS_DIR=Testing/Tests
 
 CPPUTEST_HOME = cpputest
 OUTPUT_DIR=$(PROJECT_HOME_DIR)/output
@@ -26,14 +32,18 @@ SRC_DIRS = \
 	$(LIB)/Interfaces \
 	$(LIB)/SystemInclude \
 
+
 TEST_SRC_DIRS = \
 	Testing/ \
-	Testing/Tests/Gpio/ \
+	$(TESTS_DIR)/ \
+	$(TESTS_DIR)/Gpio \
 
 INCLUDE_DIRS =\
 	$(SRC_DIRS) \
 	$(TEST_SRC_DIRS) \
 	$(CPPUTEST_HOME)/include \
+	Testing/Doubles \
+
 
 include $(CPPUTEST_HOME)/build/MakefileWorker.mk
 
