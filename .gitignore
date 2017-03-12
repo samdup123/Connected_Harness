@@ -36,3 +36,4 @@
 
 # TestOutput
 *.d
+UnitTesting/output/
