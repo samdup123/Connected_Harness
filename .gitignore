@@ -33,3 +33,6 @@
 *.su
 .pioenvs
 .piolibdeps
+
+# TestOutput
+*.d
