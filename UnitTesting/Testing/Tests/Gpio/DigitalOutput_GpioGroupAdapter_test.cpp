@@ -4,14 +4,13 @@
  * Written by JamApps
  */
 
-extern "C"
-{
+extern "C" {
 #include <stdio.h>
 #include "DigitalOutput_GpioGroupAdapter.h"
 #include "utilities.h"
 }
 #include "CppUTest/TestHarness.h"
-#include "double_GpioGroup.h"
+#include "d_GpioGroup.h"
 
 #define Given
 #define When
@@ -53,19 +52,37 @@ TEST_GROUP(DigitalOutput_GpioGroupAdapter_test) {
 };
 
 TEST(DigitalOutput_GpioGroupAdapter_test, ShouldInit) {
-		Given TheModuleHasBeenInitializedWith(Channel1);
+	Given TheModuleHasBeenInitializedWith(Channel1);
 }
 
 TEST(DigitalOutput_GpioGroupAdapter_test, ShouldBeAbleToWriteOn) {
-		Given TheModuleHasBeenInitializedWith(Channel1);
-		TheModuleWrites(ON);
+	Given TheModuleHasBeenInitializedWith(Channel1);
+	TheModuleWrites(ON);
 
-		Thus TheGpioGroupShouldRead(Channel1, ON);
+	Thus TheGpioGroupShouldRead(Channel1, ON);
 }
 
 TEST(DigitalOutput_GpioGroupAdapter_test, ShouldBeAbleToWriteOff) {
-		Given TheModuleHasBeenInitializedWith(Channel1);
-		TheModuleWrites(OFF);
+	Given TheModuleHasBeenInitializedWith(Channel1);
+	TheModuleWrites(OFF);
 
-		Thus TheGpioGroupShouldRead(Channel1, 0);
+	Thus TheGpioGroupShouldRead(Channel1, 0);
+}
+
+TEST(DigitalOutput_GpioGroupAdapter_test, ShouldBeAbleToWriteOffToADifferentChannel) {
+	Given TheModuleHasBeenInitializedWith(Channel2);
+	TheModuleWrites(OFF);
+
+	Thus TheGpioGroupShouldRead(Channel2, OFF);
+}
+
+TEST(DigitalOutput_GpioGroupAdapter_test, ShouldBeAbleToWriteAlternatingValues) {
+	Given TheModuleHasBeenInitializedWith(Channel1);
+	TheModuleWrites(OFF);
+
+	Thus TheGpioGroupShouldRead(Channel1, OFF);
+
+	TheModuleWrites(ON);
+
+	Thus TheGpioGroupShouldRead(Channel1, ON);
 }

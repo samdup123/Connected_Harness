@@ -5,8 +5,8 @@
  * Written by JamApps
  */
 
-#ifndef double_GpioGroup
-#define double_GpioGroup
+#ifndef Double_GpioGroup
+#define Double_GpioGroup
 
 #include "i_GpioGroup.h"
 

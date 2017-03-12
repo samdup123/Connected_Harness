@@ -4,7 +4,7 @@
  * Written by JamApps
  */
 
-#include "double_GpioGroup.h"
+#include "d_GpioGroup.h"
 #include "utilities.h"
 
 bool Read(void *subj, ty_Channel_GpioGroup channel)
