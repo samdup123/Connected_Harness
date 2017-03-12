@@ -10,7 +10,7 @@
 static void Write(void *subj, bool state)
 {
 	RECAST(subject, subj, ty_DigitalOutput_GpioGroupAdapter *);
-	Write_GpioGroup(subject->priv.gpio, subject->priv.channel, ON);
+	Write_GpioGroup(subject->priv.gpio, subject->priv.channel, state);
 }
 
 static const ty_i_api_DigitalOutput api =

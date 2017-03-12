@@ -22,7 +22,7 @@ typedef struct
 	const ty_i_api_DigitalOutput *api;
 } ty_i_DigitalOutput;
 
-#define Write_DigitalOutput(subject, state) \
-	(subject)->(api)->Write((subject), (state))
+#define Write_DigitalOutput(subj, state) \
+	(subj)->api->Write((subj), (state))
 
 #endif

@@ -7,7 +7,7 @@ output/build/Testing/Tests//DigitalOutput_GpioGroupAdapter_test.o: \
  cpputest/include/CppUTest/MemoryLeakDetectorMallocMacros.h \
  ../lib/Gpio/DigitalOutput_GpioGroupAdapter.h \
  ../lib/Interfaces/i_DigitalOutput.h ../lib/Interfaces/i_GpioGroup.h \
- cpputest/include/CppUTest/TestHarness.h \
+ ../lib/SystemInclude/utilities.h cpputest/include/CppUTest/TestHarness.h \
  cpputest/include/CppUTest/CppUTestConfig.h \
  cpputest/include/CppUTest/Utest.h \
  cpputest/include/CppUTest/SimpleString.h \
@@ -35,6 +35,8 @@ cpputest/include/CppUTest/MemoryLeakDetectorMallocMacros.h:
 ../lib/Interfaces/i_DigitalOutput.h:
 
 ../lib/Interfaces/i_GpioGroup.h:
+
+../lib/SystemInclude/utilities.h:
 
 cpputest/include/CppUTest/TestHarness.h:
 
