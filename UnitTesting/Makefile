@@ -28,6 +28,7 @@ CPP_PLATFORM = Gcc
 CPPUTEST_WARNINGFLAGS+= -Werror -Wall
 
 SRC_DIRS = \
+	$(LIB)/Clips \
 	$(LIB)/Gpio \
 	$(LIB)/Interfaces \
 	$(LIB)/SystemInclude \
@@ -36,7 +37,7 @@ SRC_DIRS = \
 
 TEST_SRC_DIRS = \
 	Testing/ \
-	$(TESTS_DIR)/ \
+	$(TESTS_DIR)/Clips \
 	$(TESTS_DIR)/Gpio \
 
 INCLUDE_DIRS =\

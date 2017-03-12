@@ -24,7 +24,7 @@ typedef struct
 } ty_NorOperator;
 
 void init_NorOperator(
-		ty_NorOperator *subj,
+		ty_NorOperator *subject,
 		ty_i_DigitalInput *leftInput,
 		ty_i_DigitalInput *rightInput);
 #endif

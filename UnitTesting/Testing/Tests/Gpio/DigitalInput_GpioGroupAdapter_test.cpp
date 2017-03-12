@@ -11,7 +11,7 @@ extern "C" {
 }
 #include "CppUTest/TestHarness.h"
 
-#include "d_GpioGroup.h"
+#include "double_GpioGroup.h"
 
 #define Given
 #define When
