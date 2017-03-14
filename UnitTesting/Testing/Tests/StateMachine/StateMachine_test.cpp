@@ -71,5 +71,3 @@ TEST(StateMachine_test, ) {
 	TheStateMachineTransitionsTo(State_2);
 }
 
-
-
