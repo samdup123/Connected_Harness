@@ -31,6 +31,7 @@ SRC_DIRS = \
 	$(LIB)/Clips \
 	$(LIB)/Gpio \
 	$(LIB)/Interfaces \
+	$(LIB)/StateMachine \
 	$(LIB)/SystemInclude \
 	Testing/Doubles \
 
@@ -39,6 +40,7 @@ TEST_SRC_DIRS = \
 	Testing/ \
 	$(TESTS_DIR)/Clips \
 	$(TESTS_DIR)/Gpio \
+	$(TESTS_DIR)/StateMachine \
 
 INCLUDE_DIRS =\
 	$(SRC_DIRS) \
