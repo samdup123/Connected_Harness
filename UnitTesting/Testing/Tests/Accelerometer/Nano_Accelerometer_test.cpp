@@ -81,7 +81,7 @@ TEST(Nano_Accelerometer_test, ShouldEnableOutputIfItHasFallen) {
 	Then TheOutputShouldBeAtState(ON);
 }
 
-TEST(Nano_Accelerometer_test, ShouldNotSayItHasFallenTwiceInARow) {
+TEST(Nano_Accelerometer_test, ShouldNotSayItHasFallenTwiceInARowIfItHasFallenOnce) {
 	Given TheAccelerometerIsInitialized();
 	And TheAccelerometerFallStateIs(HasFallen);
 	Thus TheAccelerometerShouldSayThatItHasFallen();
