@@ -13,9 +13,7 @@
 
 typedef struct
 {
-	void (*CollectTrigger)(void subj*);
-
-	bool (*HasFallen)(void subj*);
+	bool (*HasFallen)(void *subj);
 } ty_i_api_Accelerometer;
 
 typedef struct
@@ -24,6 +22,6 @@ typedef struct
 } ty_i_Accelerometer;
 
 #define HasFallen_Accelerometer(subject) \
-	(subject)->(api)->HasFallen((subject))
+	(subject)->api->HasFallen((subject))
 
 #endif
