@@ -1,31 +1,38 @@
 extern "C"
 {
-#include <uno_GpioGroup.h>
+#include "uno_GpioGroup.h"
 #include "DigitalInput_GpioGroupAdapter.h"
-#include "DigitalInputPullup_GpioGroupAdapter.h"
+#include "DigitalOutput_GpioGroupAdapter.h"
 #include "utilities.h"
 }
 #include "Arduino.h"
 
 static ty_i_GpioGroup *gpio;
-static ty_DigitalInput_GpioGroupAdapter digIn;
-static ty_DigitalInputPullup_GpioGroupAdapter digInPullup;
+static ty_DigitalInput_GpioGroupAdapter accelerometerInputAdapter;
+static ty_DigitalOutput_GpioGroupAdapter messageAcceptanceOutputAdapter;
+static ty_DigitalOutput_GpioGroupAdapter ledOutputAdapter;
+static bool hasFallen;
 
 void setup() {
 	gpio = init_uno_GpioGroup();
 	Serial.begin(9600);
 
-	init_DigitalInputPullup_GpioGroupAdapter(&digInPullup, gpio, 4);
-	init_DigitalInput_GpioGroupAdapter(&digIn, gpio, 4);
+	init_DigitalInput_GpioGroupAdapter(&accelerometerInputAdapter, gpio, 7);
+	init_DigitalOutput_GpioGroupAdapter(&messageAcceptanceOutputAdapter, gpio, 8);
+	init_DigitalOutput_GpioGroupAdapter(&ledOutputAdapter, gpio, LED_BUILTIN);
 }
 
 void loop() {
-	bool state = Read_DigitalInputPullup(&digInPullup.interface);
-	Serial.print("\npullup");
-	Serial.println(state);
+	if (Read_DigitalInput(&accelerometerInputAdapter.interface))
+	{
+		Write_DigitalOutput(&ledOutputAdapter.interface, ON);
+		hasFallen = true;
+	}
 
-    state = Read_DigitalInputPullup(&digIn.interface);
-	Serial.print("\nnotpullup");
-	Serial.println(state);
-	delay(700);
+	delay(500);
+
+	if (hasFallen)
+	{
+		Write_DigitalOutput(&ledOutputAdapter.interface, OFF);
+	}
 }

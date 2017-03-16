@@ -14,7 +14,10 @@
 
 enum
 {
-	UniversalPin_Led = 2
+	UniversalPin_Led = 2,
+	UniversalPin_MessageOutput = 8,
+	UniversalPin_MessageInput = 7,
+	UniversalPin_Buzzer = 12
 };
 
 typedef uint8_t ty_UniversalPin;

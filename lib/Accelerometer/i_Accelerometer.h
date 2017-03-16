@@ -14,6 +14,7 @@
 typedef struct
 {
 	bool (*HasFallen)(void *subj);
+	void (*Reset)(void *subj);
 } ty_i_api_Accelerometer;
 
 typedef struct
@@ -23,5 +24,8 @@ typedef struct
 
 #define HasFallen_Accelerometer(subject) \
 	(subject)->api->HasFallen((subject))
+
+#define Reset_Accelerometer(subject) \
+	(subject)->api->Reset((subject))
 
 #endif

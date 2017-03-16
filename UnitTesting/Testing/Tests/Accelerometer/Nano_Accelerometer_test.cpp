@@ -20,8 +20,7 @@ extern "C" {
 
 enum
 {
-	HasFallen = true,
-	HasNotFallen = false
+	HasFallen = true, HasNotFallen = false
 };
 
 TEST_GROUP(Nano_Accelerometer_test)
@@ -39,7 +38,7 @@ TEST_GROUP(Nano_Accelerometer_test)
 		init_Nano_Accelerometer(&subject, &output.interface, &input.interface);
 	}
 
-	void TheAccelerometerShouldNotSayThatItHasFallen() {
+	void TheAccelerometerShouldSayThatItHasNotFallen() {
 		CHECK_EQUAL(false, HasFallen_Accelerometer(&subject.interface));
 	}
 
@@ -47,12 +46,15 @@ TEST_GROUP(Nano_Accelerometer_test)
 		CHECK_EQUAL(true, HasFallen_Accelerometer(&subject.interface));
 	}
 
+	void TheAccelerometerShouldBeReset() {
+		Reset_Accelerometer(&subject.interface);
+	}
+
 	void TheAccelerometerFallStateIs(bool state) {
 		ChangeState_double_DigitalInput(&input, state);
 	}
 
-	void TheOutputShouldBeAtState(bool expectedState)
-	{
+	void TheOutputShouldBeAtState(bool expectedState) {
 		CHECK_EQUAL(expectedState, CheckState_double_DigitalOutput(&output));
 	}
 };
@@ -64,7 +66,7 @@ TEST(Nano_Accelerometer_test, ShouldInit) {
 TEST(Nano_Accelerometer_test, ShouldReturnFalseIfItHasntFallen) {
 	Given TheAccelerometerIsInitialized();
 	And TheAccelerometerFallStateIs(HasNotFallen);
-	Thus TheAccelerometerShouldNotSayThatItHasFallen();
+	Thus TheAccelerometerShouldSayThatItHasNotFallen();
 }
 
 TEST(Nano_Accelerometer_test, ShouldReturnTrueIfTheInputIsEnabled) {
@@ -88,17 +90,29 @@ TEST(Nano_Accelerometer_test, ShouldNotSayItHasFallenTwiceInARowIfItHasFallenOnc
 
 	Then TheOutputShouldBeAtState(ON);
 
-	And TheAccelerometerShouldNotSayThatItHasFallen();
+	And TheAccelerometerShouldSayThatItHasNotFallen();
 }
 
-TEST(Nano_Accelerometer_test, ShouldDisableOutputAfterItIsReadTwice) {
+TEST(Nano_Accelerometer_test, ShouldNotDisableOutputAfterItIsReadTwice) {
 	Given TheAccelerometerIsInitialized();
 	And TheAccelerometerFallStateIs(ON);
 	Thus TheAccelerometerShouldSayThatItHasFallen();
 
 	Then TheOutputShouldBeAtState(ON);
 
-	And TheAccelerometerShouldNotSayThatItHasFallen();
+	And TheAccelerometerShouldSayThatItHasNotFallen();
+
+	Then TheOutputShouldBeAtState(ON);
+}
+
+TEST(Nano_Accelerometer_test, ShouldDisableOutputIfItResetAfterFalling) {
+	Given TheAccelerometerIsInitialized();
+	And TheAccelerometerFallStateIs(ON);
+	Thus TheAccelerometerShouldSayThatItHasFallen();
+
+	Then TheOutputShouldBeAtState(ON);
+
+	TheAccelerometerShouldBeReset();
 
 	Then TheOutputShouldBeAtState(OFF);
 }
@@ -108,7 +122,7 @@ TEST(Nano_Accelerometer_test, ShouldBeAbleToFallTwice) {
 	And TheAccelerometerFallStateIs(HasFallen);
 	Thus TheAccelerometerShouldSayThatItHasFallen();
 
-	And TheAccelerometerShouldNotSayThatItHasFallen();
+	Then TheAccelerometerShouldBeReset();
 
 	Then TheAccelerometerFallStateIs(HasFallen);
 

@@ -20,7 +20,7 @@ typedef struct
 
 	struct
 	{
-		bool hasFallen;
+		bool hasReported;
 
 		ty_i_DigitalOutput *output;
 		ty_i_DigitalInput *input;
