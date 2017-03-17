@@ -4,8 +4,9 @@
  * Written by JamApps
  */
 
-#include "uno_GpioGroup.h"
-#include "UniversalConstantsUno.h"
+#include "../Hardware_BoardSpecific/uno_GpioGroup.h"
+
+#include "../Hardware_BoardSpecific/UniversalConstantsUno.h"
 #include "Arduino.h"
 
 bool Read(void *subj, ty_Channel_GpioGroup channel) {
