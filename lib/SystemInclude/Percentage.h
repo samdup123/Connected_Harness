@@ -9,6 +9,8 @@
 #ifndef Percentage
 #define Percentage
 
+#include <stdint.h>
+
 typedef uint8_t ty_Percentage;
 
 #endif
