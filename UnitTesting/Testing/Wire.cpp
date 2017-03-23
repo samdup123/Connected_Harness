@@ -168,17 +168,17 @@ size_t TwoWire::write(const uint8_t *data, size_t quantity){
   return quantity;
 }
 
-int TwoWire::available(void){
-  int result = rxBufferLength - rxBufferIndex;
-
-  if (!result) {
-    // yielding here will not make more data "available",
-    // but it will prevent the system from going into WDT reset
-    optimistic_yield(1000);
-  }
-
-  return result;
-}
+//int TwoWire::available(void){
+//  int result = rxBufferLength - rxBufferIndex;
+//
+//  if (!result) {
+//    // yielding here will not make more data "available",
+//    // but it will prevent the system from going into WDT reset
+//    optimistic_yield(1000);
+//  }
+//
+//  return result;
+//}
 
 int TwoWire::read(void){
   int value = -1;

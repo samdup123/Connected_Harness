@@ -1,5 +1,6 @@
 #include "Accelerometer_ADXL345.h"
 #include "Arduino.h"
+#include <Wire.h>
 
 	static ty_Accelerometer_ADXL345 adxl;
 	static ty_i_Accelerometer *accel;
@@ -17,9 +18,13 @@ void loop() {
 	if (state)
 	{
 		Serial.println("good!!!!");
+		delay(1000);
+		Reset_Accelerometer(accel);
 	}
 	else
 	{
 		Serial.println("shit");
 	}
+	delay(8);
+	Serial.println("");
 }

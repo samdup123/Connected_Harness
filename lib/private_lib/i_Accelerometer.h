@@ -25,7 +25,7 @@ typedef struct
 #define CheckHasFallen_Accelerometer(subj) \
 	subj->api->CheckHasFallen(subj)
 
-#define Rest_Accelerometrt(subject) \
+#define Reset_Accelerometer(subject) \
 	(subject)->api->Reset(subject)
 
 #endif
