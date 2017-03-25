@@ -30,8 +30,9 @@ CPPUTEST_WARNINGFLAGS+= -Werror -Wall
 SRC_DIRS = \
 	$(LIB)/Clips \
 	$(LIB)/Gpio \
+	$(LIB)/HarnessMainApplication \
 	$(LIB)/Interfaces \
-	$(LIB)/RadioFrequency \
+	$(LIB)/IO \
 	$(LIB)/StateMachine \
 	$(LIB)/SystemInclude \
 	Testing/Doubles \
@@ -39,10 +40,11 @@ SRC_DIRS = \
 
 TEST_SRC_DIRS = \
 	Testing/ \
+	$(TESTS_DIR)/Application \
 	$(TESTS_DIR)/Clips \
 	$(TESTS_DIR)/Gpio \
+	$(TESTS_DIR)/IO \
 	$(TESTS_DIR)/StateMachine \
-	$(TESTS_DIR)/RadioFrequency \
 
 INCLUDE_DIRS =\
 	$(SRC_DIRS) \
