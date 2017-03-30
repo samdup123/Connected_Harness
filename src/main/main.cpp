@@ -1,30 +1,20 @@
-#include "Accelerometer_ADXL345.h"
-#include "Arduino.h"
 #include <Wire.h>
+#include "SparkFunMPL3115A2.h"
+#include "Altimeter_MPL3115A2.h"
 
-	static ty_Accelerometer_ADXL345 adxl;
-	static ty_i_Accelerometer *accel;
+//MPL3115A2 myPressure;
+
+ty_Altimeter_MPL3115A2 altimeter;
 
 void setup() {
-	Serial.begin(9600);
-
-
-	init_Accelerometer_ADXL345(&adxl);
-	accel = &adxl.interface;
+	init_AltimeterMPL3115A2(&altimeter);
+	Serial.begin(9600);  // Start serial for output
 }
 
 void loop() {
-	bool state = CheckHasFallen_Accelerometer(accel);
-	if (state)
-	{
-		Serial.println("good!!!!");
-		delay(1000);
-		Reset_Accelerometer(accel);
-	}
-	else
-	{
-		Serial.println("shit");
-	}
-	delay(8);
-	Serial.println("");
+	Serial.print("farts");
+	uint16_t altitude;
+	Read_Input(&altimeter.interface, &altitude);
+	Serial.print(altitude);
+	Serial.println();
 }
