@@ -10,6 +10,7 @@
 #define double_Output
 
 #include "i_Output.h"
+#include <stdint.h>
 
 typedef struct
 {
@@ -18,9 +19,11 @@ typedef struct
 	struct
 	{
 		void *data;
+		uint8_t sizeOfData;
 	} priv;
 } ty_double_Output;
 
-void init_double_Output(ty_double_Output *subject);
-void ChangeData_double_Output(ty_double_Output *subject, void *data);
+void init_double_Output(ty_double_Output *subject, void * data, uint8_t sizeOfData);
+
+void * CheckData_double_Output(ty_double_Output *subject);
 #endif

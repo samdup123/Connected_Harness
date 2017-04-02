@@ -16,12 +16,12 @@ COMPONENT_NAME=tdd-base
 LIB=../lib
 TESTS_DIR=Testing/Tests
 
+CPPUTEST_WARNINGFLAGS += -Wno-c++14-compat #no warning for the -Werror=c++14-compat#
+
 CPPUTEST_HOME = cpputest
 OUTPUT_DIR=$(PROJECT_HOME_DIR)/output
 CPPUTEST_OBJS_DIR=$(OUTPUT_DIR)/build
 CPPUTEST_LIB_DIR=$(CPPUTEST_OBJS_DIR)/lib
-
-CPPUTEST_WARNINGFLAGS += -Wno-c++14-compat #no warning for the -Werror=c++14-compat#
 
 CPPUTEST_USE_EXTENSIONS=Y
 CPP_PLATFORM = Gcc

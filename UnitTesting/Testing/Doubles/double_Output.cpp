@@ -9,16 +9,18 @@
 
 void Write(void *subj, void *data) {
 	RECAST(subject, subj, ty_double_Output *);
-	subject->priv.data = data;
+	memcpy(subject->priv.data, data, subject->priv.sizeOfData);
 }
 
 static const ty_i_api_Output api = { Write };
 
-void init_double_Output(ty_double_Output *subject) {
+void init_double_Output(ty_double_Output *subject, void * data, uint8_t sizeOfData) {
 	subject->interface.api = &api;
+	subject->priv.data = data;
+	subject->priv.sizeOfData = sizeOfData;
 }
 
-void ChangeData_double_Output(ty_double_Output *subject, void *data)
+void * CheckData_double_Output(ty_double_Output *subject)
 {
-	subject->priv.data = data;
+	return subject->priv.data;
 }

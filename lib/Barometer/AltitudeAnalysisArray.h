@@ -11,9 +11,9 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "i_Output.h"
 
 typedef uint32_t ty_AltitudeUnits;
-
 typedef uint16_t ty_AltitudeUnitsPerUnitOfTime;
 
 typedef struct
@@ -24,6 +24,12 @@ typedef struct
 
 typedef struct
 {
+
+} ty_altitude;
+
+typedef struct
+{
+	ty_i_Output interface;
 	struct
 	{
 		ty_entry_AltitudeAnalysisArray *altitudeTable;
@@ -35,7 +41,8 @@ typedef struct
 
 void init_AltitudeAnalysisArray(
 		ty_AltitudeAnalysisArray *subject,
-		void *altitudeTable, uint8_t numberOfEntries);
+		void *altitudeTable,
+		uint8_t numberOfEntries);
 
 bool AverageAltitudeAboveThreshold_AltitudeAnalysisArray(
 		ty_AltitudeAnalysisArray *subject,
