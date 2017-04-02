@@ -19,34 +19,39 @@
 
 typedef uint32_t ty_Velocity;
 typedef uint32_t ty_Feet;
+typedef uint32_t ty_TimeStamp;
+
+typedef struct
+{
+	ty_Feet altitude;
+	ty_TimeStamp timeStamp;
+} ty_BarometerAltitudeEntry;
+
+#define SIZE_OF_BAROMETER_ALTITUDE_ARRAY (60)
 
 typedef struct
 {
 	ty_i_DigitalInput hasFallenInterface;
 	ty_i_DigitalInput aboveThresholdAltitudeInput;
-	ty_i_Output thresholdUpdateOutput;
+	ty_i_Output thresholdUpdateInterface;
 
-	ty_i_Input velocityInput;
-	ty_i_Input altitudeAverageInput;
+	ty_i_Input velocityInterface;
+	ty_i_Input averageAltitudeInterface;
 	struct
 	{
 		ty_i_Input *altimeterInput;
-		ty_i_Output *analysisOutput;
-
-		ty_AltitudeAnalysisArray altitudeAnalysisArray;
-		ty_AddTimeStamp_InputToOutputMapper altimeterMapper;
-
-		ty_Velocity fallenThresholdSpeed;
 		ty_Feet altitudeThreshold;
+		ty_Velocity fallenThresholdSpeed;
+
+		ty_BarometerAltitudeEntry entryTable[60];
+
 	} priv;
 } ty_Barometer;
 
 void init_Barometer(
 		ty_Barometer *subject,
-		void *entryTable,
-		uint8_t numberOfEntries,
 		ty_i_Input *altimeterInput);
 
-void CaptureAltitudeEntry_Barometer(ty_Barometer *subject, uint32_t time);
+//void CaptureAltitudeEntry_Barometer(ty_Barometer *subject, uint32_t time);
 
 #endif

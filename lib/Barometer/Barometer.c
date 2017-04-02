@@ -9,51 +9,50 @@
 #include "utilities.h"
 #include <stdio.h>
 
-void WriteAltitudeThreshold(void *subj, void *data)
+void ReadAverageAltitude(void *subj, void *data)
 {
 	RECAST(subject, subj, ty_Barometer *);
-	memcpy(&subject->priv.altitudeThreshold, data, sizeof(ty_Feet));
+	RECAST(averageAltitude, data, ty_Feet *);
+
+	ty_Feet totalAltitudeCounts = 0;
+
+	for(uint8_t index = 0; index < SIZE_OF_BAROMETER_ALTITUDE_ARRAY; index++)
+	{
+		printf("index%d ", index);
+		printf("alt%d ",subject->priv.entryTable[index].altitude);
+		printf("time%d\n", subject->priv.entryTable[index].timeStamp);
+	}
+
+	for(uint8_t index = 0; index < SIZE_OF_BAROMETER_ALTITUDE_ARRAY; index++)
+	{
+		totalAltitudeCounts += subject->priv.entryTable[index].altitude;
+	}
+
+	*averageAltitude = totalAltitudeCounts / SIZE_OF_BAROMETER_ALTITUDE_ARRAY;
 }
 
-static const ty_i_api_Output altitudeThresholdOutputApi = { WriteAltitudeThreshold };
-
-
-bool CheckIfAboveAltitudeThreshold(void *subj)
-{
-	RECAST(subject, subj, ty_Barometer *);
-	return AverageAltitudeAboveThreshold_AltitudeAnalysisArray(
-			&subject->priv.altitudeAnalysisArray,
-			subject->priv.altitudeThreshold);
-}
-
-static const ty_i_api_DigitalInput aboveThresholdAltitudeInputApi = { CheckIfAboveAltitudeThreshold };
+static const ty_i_api_Input averageAltitudeInterfaceApi = { ReadAverageAltitude };
 
 void init_Barometer(
 		ty_Barometer *subject,
-		void *entryTable,
-		uint8_t numberOfEntries,
 		ty_i_Input *altimeterInput)
 {
-	// set up barometer's own interfaces
-	subject->thresholdUpdateOutput.api = &altitudeThresholdOutputApi;
-
-	subject->aboveThresholdAltitudeInput.api = &aboveThresholdAltitudeInputApi;
-
-	// add in barometer's privates
+	subject->averageAltitudeInterface.api = &averageAltitudeInterfaceApi;
 	subject->priv.altimeterInput = altimeterInput;
 
-	init_AltitudeAnalysisArray(
-			&subject->priv.altitudeAnalysisArray,
-			entryTable,
-			numberOfEntries);
+//	ty_BarometerAltitudeEntry zeroEntry;
+//	zeroEntry.altitude = 0;
+//	zeroEntry.timeStamp = 0;
+//	ty_BarometerAltitudeEntry *entryPointer = subject->priv.entryTable;
+//	for(uint8_t index = 0; index < SIZE_OF_BAROMETER_ALTITUDE_ARRAY; index++)
+//	{
+//		memcpy(entryPointer, &zeroEntry, sizeof(zeroEntry));
+//	}
 
-	init_AddTimeStamp_InputToOutputMapper(
-			&subject->priv.altimeterMapper,
-			subject->priv.altimeterInput,
-			&subject->priv.altitudeAnalysisArray.interface);
+	for(uint8_t index = 0; index < SIZE_OF_BAROMETER_ALTITUDE_ARRAY; index++)
+	{
+		printf("alt%d ",subject->priv.entryTable[index].altitude);
+		printf("time%d\n", subject->priv.entryTable[index].timeStamp);
+	}
 }
 
-void CaptureAltitudeEntry_Barometer(ty_Barometer *subject, uint32_t time)
-{
-	Map_InputToOutputMapper(&subject->priv.altimeterMapper.interface, &time);
-}
