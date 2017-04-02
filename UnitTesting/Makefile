@@ -17,6 +17,7 @@ LIB=../lib
 TESTS_DIR=Testing/Tests
 
 CPPUTEST_WARNINGFLAGS += -Wno-c++14-compat #no warning for the -Werror=c++14-compat#
+CPPUTEST_WARNINGFLAGS += -fno-stack-protector 
 
 CPPUTEST_HOME = cpputest
 OUTPUT_DIR=$(PROJECT_HOME_DIR)/output

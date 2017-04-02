@@ -31,11 +31,6 @@ typedef struct
 
 typedef struct
 {
-	ty_i_DigitalInput hasFallenInterface;
-	ty_i_DigitalInput aboveThresholdAltitudeInput;
-	ty_i_Output thresholdUpdateInterface;
-
-	ty_i_Input velocityInterface;
 	ty_i_Input averageAltitudeInterface;
 	struct
 	{
@@ -43,15 +38,13 @@ typedef struct
 		ty_Feet altitudeThreshold;
 		ty_Velocity fallenThresholdSpeed;
 
-		ty_BarometerAltitudeEntry entryTable[60];
+		ty_BarometerAltitudeEntry entryTable[SIZE_OF_BAROMETER_ALTITUDE_ARRAY];
 
 	} priv;
 } ty_Barometer;
 
-void init_Barometer(
-		ty_Barometer *subject,
-		ty_i_Input *altimeterInput);
+void init_Barometer(ty_Barometer *subject, ty_i_Input *altimeterInput);
 
-//void CaptureAltitudeEntry_Barometer(ty_Barometer *subject, uint32_t time);
+void CaptureAltitudeEntry_Barometer(ty_Barometer *subject, ty_TimeStamp timeStamp);
 
 #endif

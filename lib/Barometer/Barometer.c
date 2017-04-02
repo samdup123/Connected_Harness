@@ -15,14 +15,6 @@ void ReadAverageAltitude(void *subj, void *data)
 	RECAST(averageAltitude, data, ty_Feet *);
 
 	ty_Feet totalAltitudeCounts = 0;
-
-	for(uint8_t index = 0; index < SIZE_OF_BAROMETER_ALTITUDE_ARRAY; index++)
-	{
-		printf("index%d ", index);
-		printf("alt%d ",subject->priv.entryTable[index].altitude);
-		printf("time%d\n", subject->priv.entryTable[index].timeStamp);
-	}
-
 	for(uint8_t index = 0; index < SIZE_OF_BAROMETER_ALTITUDE_ARRAY; index++)
 	{
 		totalAltitudeCounts += subject->priv.entryTable[index].altitude;
@@ -33,26 +25,24 @@ void ReadAverageAltitude(void *subj, void *data)
 
 static const ty_i_api_Input averageAltitudeInterfaceApi = { ReadAverageAltitude };
 
-void init_Barometer(
-		ty_Barometer *subject,
-		ty_i_Input *altimeterInput)
+void init_Barometer(ty_Barometer *subject, ty_i_Input *altimeterInput)
 {
 	subject->averageAltitudeInterface.api = &averageAltitudeInterfaceApi;
 	subject->priv.altimeterInput = altimeterInput;
+}
 
-//	ty_BarometerAltitudeEntry zeroEntry;
-//	zeroEntry.altitude = 0;
-//	zeroEntry.timeStamp = 0;
-//	ty_BarometerAltitudeEntry *entryPointer = subject->priv.entryTable;
-//	for(uint8_t index = 0; index < SIZE_OF_BAROMETER_ALTITUDE_ARRAY; index++)
-//	{
-//		memcpy(entryPointer, &zeroEntry, sizeof(zeroEntry));
-//	}
+void CaptureAltitudeEntry_Barometer(ty_Barometer *subject, ty_TimeStamp timeStamp)
+{
+	ty_Feet newAltitude;
+	Read_Input(subject->priv.altimeterInput, &newAltitude);
 
-	for(uint8_t index = 0; index < SIZE_OF_BAROMETER_ALTITUDE_ARRAY; index++)
+	for(uint8_t index = 1; index < SIZE_OF_BAROMETER_ALTITUDE_ARRAY; index++)
 	{
-		printf("alt%d ",subject->priv.entryTable[index].altitude);
-		printf("time%d\n", subject->priv.entryTable[index].timeStamp);
+		subject->priv.entryTable[index - 1].altitude = subject->priv.entryTable[index].altitude;
+		subject->priv.entryTable[index - 1].timeStamp = subject->priv.entryTable[index].timeStamp;
 	}
+
+	subject->priv.entryTable[SIZE_OF_BAROMETER_ALTITUDE_ARRAY - 1].altitude = newAltitude;
+	subject->priv.entryTable[SIZE_OF_BAROMETER_ALTITUDE_ARRAY - 1].timeStamp = timeStamp;
 }
 

@@ -16,9 +16,12 @@ extern "C" {
 #define Thus
 #define And
 
+#define Milliseconds
+
 enum
 {
-	Zero = 0,
+	ZeroFeet = 0,
+	TenFeetHigh = 10
 };
 
 TEST_GROUP(Barometer_test)
@@ -44,10 +47,33 @@ TEST_GROUP(Barometer_test)
 		Read_Input(&subject.averageAltitudeInterface, &actualAverageAltitude);
 		CHECK_EQUAL(expectedAverageAltitude, actualAverageAltitude);
 	}
+
+	void TheBarometerIs(ty_Feet altitude)
+	{
+		ChangeData_double_Input(&altimeterInputDouble, &altitude);
+	}
+
+	void TheBarometerIsReadWithTimeStampOf(ty_TimeStamp timeStamp)
+	{
+		CaptureAltitudeEntry_Barometer(&subject, timeStamp);
+	}
+
+	void TheAverageAltitudeShouldBeAboveZero()
+	{
+		ty_Feet averageAltitude;
+		Read_Input(&subject.averageAltitudeInterface, &averageAltitude);
+		CHECK(averageAltitude > 0);
+	}
 };
 
 TEST(Barometer_test, ShouldHaveAverageAltitudeOfZeroUponInitialization)	{
 	Given TheBarometerHasBeenInitialized();
 
-	TheAverageAltitudeShouldBe(Zero);
+	TheAverageAltitudeShouldBe(ZeroFeet);
+}
+
+TEST(Barometer_test, ShouldHaveCorrectAverageAltitude)	{
+	Given TheBarometerHasBeenInitialized();
+	And TheBarometerIs(TenFeetHigh);
+	And TheBarometerIsReadWithTimeStampOf(0 Milliseconds);
 }
