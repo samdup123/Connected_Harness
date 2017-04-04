@@ -10,8 +10,8 @@
 MPL3115A2 myPressure;
 
 void Read(void *subj, void *data) {
-	RECAST(fart, data, uint16_t *);
-	*fart =  myPressure.readAltitudeFt();
+	RECAST(altitude, data, uint16_t *);
+	*altitude =  myPressure.readAltitudeFt();
 }
 
 static const ty_i_api_Input api = { Read };

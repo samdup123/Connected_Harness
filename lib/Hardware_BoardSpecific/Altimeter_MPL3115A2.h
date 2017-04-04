@@ -12,8 +12,7 @@
 #include <Wire.h>
 #include "SparkFunMPL3115A2.h"
 #include "i_Input.h"
-
-typedef uint16_t ty_Feet;
+#include "Feet.h"
 
 typedef struct
 {
